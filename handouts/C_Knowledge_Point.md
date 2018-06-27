@@ -34,7 +34,7 @@
 	        -----------|--------------
 	        () [] -> . | left to right
 	        ! ~ ++ -- + - * (type) sizeof|right to left
-	        * / %|left to right
+	        \* / %|left to right
 	        + - | left to right
 	        << >> | left to right
 	        < <= > >=|left to right
@@ -45,7 +45,7 @@
 	        &&|left to right
 	        &#124;&#124; | left to right
 	        ?: | left to right
-	        = += -= *= /= %= &= ^= &#124;= <<= >>=|right to left
+	        = += -= \*= /= %= &= ^= &#124;= <<= >>=|right to left
 	        ,|left to right
   * ## Chapter03
     * 3.2 *If*
