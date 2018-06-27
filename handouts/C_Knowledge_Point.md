@@ -57,8 +57,8 @@
                 for ( ... ) {
                     ...
                     if (disaster)
-                        goto error;
-                 }
+                       goto error;
+                }
                 ...
             error:
                 /* clean up the mess */
