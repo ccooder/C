@@ -29,4 +29,47 @@
 			* Otherwise, if either operand is `float`, convert the other to `float`.
 			* Otherwise, convert `char` and `short` to `int`.
 			* Then, if either operand is `long`, convert the other to `long`.
+	* 2.12 *Precedence and Order of Evaluation*
+	    1.  Operators  | Associativity
+	        -----------|--------------
+	        () [] -> . | left to right
+	        ! ~ ++ -- + - * (type) sizeof|right to left
+	        * / %|left to right
+	        + - | left to right
+	        << >> | left to right
+	        < <= > >=|left to right
+	        == != | left to right
+	        &|left to right
+	        ^|left to right
+	        &#124;|left to right
+	        &&|left to right
+	        &#124;&#124; | left to right
+	        ?: | left to right
+	        = += -= *= /= %= &= ^= &#124;= <<= >>=|right to left
+	        ,|left to right
+  * ## Chapter03
+    * 3.2 *If*
+        1.  It's a good idea to use braces when there are nested ifs.
+    * 3.8 *Goto and labels*
+        1. The most common is to abandon processing in some deeply nested structure, such as breaking out of two or more loops at once.
+            ```c
+            for ( ... )
+                for ( ... ) {
+                    ...
+                    if (disaster)
+                        goto error;
+                 }
+                ...
+            error:
+                /* clean up the mess */
+            ```
+  * ## Chapter04
+    * 4.1 *Basics of Functions*
+        1. If the return type is omitted, int is assumed
+    * 4.2 *Functions Returning Non-integers*
+        1. `double sum, atof(char []);`
+        says that sum is a double variable, and that atof is a function that takes one char[] argument and returns a double.
+
+`
+        
 
