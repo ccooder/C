@@ -17,7 +17,7 @@ char buf[BUFSIZE]; /*buffer for un-read character*/
 int bufp = 0; /*next free position in buffer*/
 
 double val[MAXVAL]; /* value stack */
-int sp = 0; /* next free position for vaue stack*/
+int sp = 0; /* next free position for value stack*/
 
 int main(void)
 {
@@ -46,6 +46,12 @@ int main(void)
             else
                 printf("Error: zero divisor\n");
             break;
+        case '%':
+            op = pop();
+            if (op != 0.0)
+                push((int) pop() % (int) op);
+            else
+                printf("Error: zero divisor\n");
         case '\n':
             printf("%.8g\n", pop());
             break;
@@ -59,13 +65,25 @@ int main(void)
 
 int getop(char s[])
 {
-    int i, c;
+    int i, c, sign;
     while ((s[0] = c = getch()) == ' ' || c == '\t');
     s[1] = '\0';
 
-    if (!isdigit(c) && c != '.')
+    if (!isdigit(c) && c != '.' && c != '-') {
         return c;
-    i = 0;
+    }
+    if (c == '-') {
+        if (!isdigit((sign = getch()))) {
+            ungetch(sign);
+            return c;
+        }else {
+            i = 0;
+            c = sign;
+            s[++i] = sign;
+        }
+    }else {
+        i = 0;
+    }
     if (isdigit(c))
         while (isdigit(s[++i] = c = getch()));
     if (c == '.')
@@ -89,7 +107,7 @@ double pop()
 
 void push(double op)
 {
-    if (sp >= MAXVAL)
+    if (sp == MAXVAL)
         printf("Error: stack full, can't push %g\n", op);
     else
         val[sp++] = op;
@@ -102,9 +120,8 @@ int getch(void)
 
 void ungetch(int c)
 {
-    if (bufp > BUFSIZE) {
+    if (bufp > BUFSIZE)
         printf("%s\n", "[ungetch]Error:too many characters!");
-    }else {
+    else
         buf[bufp++] = c;
-    }
 }

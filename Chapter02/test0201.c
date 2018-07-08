@@ -1,7 +1,7 @@
 #include <stdio.h>
-int abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz0 = 0;
+int abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefgabcdefg0 = 1234;
 int abcdefghijklmnopqrstuvwxyz1 = 1;
 int main()
 {
-    printf("%d",abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz0);
+    printf("%d",abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefgabcdefg0);
 }
