@@ -15,7 +15,7 @@
     uniqueness only for 6 characters and a signle case.
 * 2.3 *C string*
   1. A string constant is an array of characters. The internal representation of a string
-    has a null character '\0' at the end
+      has a null character '\0' at the end
   2. string functions are declared in the standard header `<string.h>`
     * `strlen`
     * `strcmp`
@@ -94,7 +94,8 @@
 
 * 4.11.2 *Macro Substitution*
 
-    1. The rules for nested uses of `##` are arcane; further details may be found in Appendix A.
+    1. The preprocessor operator ## provides a way to concatenate actual arguments during macro
+       expansion. The rules for nested uses of `##` are arcane; further details may be found in Appendix A.
 
 ## Chapter-05 Pointers and Arrays
 
@@ -122,19 +123,72 @@
 * 5.11 *Pointers to Functions*
   1. The generic pointer type void * is used for the pointer arguments. Any pointer can be cast to void * and back again without loss of information
 * 5.12 *Complicated Declaration*
-  1. dcl, dir-dcl wtf? 为了说明这一小节真的很变态，我使用中文来阐述: 太难了，瞬间觉得自己并不适合编程。
+  1. dcl, dir-dcl wtf? 为了说明这一小节真的很变态，我使用中文来阐述: 太太太难了，瞬间觉得自己并不适合编程。
 
 ## Chapter-06 Structures
 
 * 6.1 *Basics of Structures*
   1.  Structures may be copied and assigned to, passed to functions, and returned by functions.
+
 * 6.2 *Structures and Functions*
   1. The only legal operations on a structure are copying it or assigning to it as a unit, taking it's address with &, and accessing it's members.
   2. The structure's operators `->` and `.` are at top of precedence hierarchy and thus bind very tightly.
-*  6.3 Structures and Arrays
-  1.  It would be more precise to enclose the initializers for each "row" or structure in braces. (P.119)
+
+* 6.3 Structures and Arrays
+  1. It would be more precise to enclose the initializers for each "row" or structure in braces. (P.119)
   2. C provides a compile-time unary operator called `sizeof` that can be used to compute the size of any object.
   3. `sizeof object` and `sizeof (type name)` yield an unsigned integer value whose type,`size_t` is defined in the header `<stddef.h>`.An object can be a variable or array or structure. A type name can be the name of a basic type like `int` or `double`, or a derived type like a structure or a pointer.
   4. 骚操作:`#define NKEYS (sizeof keytab / sizeof(struct key))`. (P.121)
   5. A `sizeof` can not be used in a `#if` line, because the preprocessor does not parse type names.The expression in the `#define` is not evaluated by the preprocessor, so the code here is legal.
+
 * 6.4 Pointers to Structures
+  1.  It is illegal for a structure to contain an instance of itself.
+
+* 6.8 Unions
+
+  1. The storage allocator in Chapter 8 shows how a union can be used to force a variable to be
+     aligned on a particular kind of storage boundary.
+
+* 6.9 Bit-fields
+
+  1. ```c
+     struct {
+     unsigned int is_keyword : 1;
+     unsigned int is_extern : 1;
+     unsigned int is_static : 1;
+     } flags;
+     flags.is_extern = flags.is_static = 1; //Turn the bit on
+     flags.is_extern = flags.is_static = 0; //Turn the bit off
+     if (flags.is_extern == 0 && flags.is_static == 0) //Test them
+     	...
+     ```
+
+  2.  Fields may be declared only as `int`s; for portability, specify signed or unsigned explicitly. They are not arrays and they do not have addresses, so the `&` operator cannot be applied on them.
+
+## Chapter-07 Input and Output
+
+* 7.2 Formatted Output - `printf`
+
+  1. | Character | Argument type; Printed As                                    |
+     | :-------- | :----------------------------------------------------------- |
+     | d,i       | `int`; decimal number                                        |
+     | o         | `int`; unsigned octal number (without a leading zero)        |
+     | x,X       | `int`; unsigned hexadecimal number (without a leading `0x` or `0X`),using `abcdef` or `ABCDEF` for 10,...15. |
+     | u         | `int`; unsigned decimal number                               |
+     | c         | `int`;single character                                       |
+     | s         | `char *`; print characters from the string until a '\0' or the number of characters given by the precision. |
+     | f         | `double`; [-]`m`.`dddddd`, where the number of d's is given by the precision (default 6) |
+     | e,E       | `double`; [-]`m`.`dddddde`+/-xx or [-]`m`.`ddddddE`+/-xx, where the number of d's is given by the precision (default 6) |
+     | g,G       | `double`; use `%e` or `%E` if the exponent is less than -4 or greater than or equal to the precision;Otherwise use `%f`.Trailing zeros and a trailing decimal point are not printed. |
+     | p         | `void *`;pointer(implementation-dependent representation).   |
+     | %         | no argument is converted; print `a%`                         |
+
+* 7.3 Formatted Input - `scanf`
+
+* 7.7  Line Input and Output
+
+  1. The library functions gets and puts are similar to fgets and fputs, but operate on stdin
+
+  and stdout. Confusingly, gets deletes the terminating '\n', and puts adds it.
+
+* 7.7 之后有很多手册式的东西，需要可以来查询（字符串，字符判断，数学计算，随机数）

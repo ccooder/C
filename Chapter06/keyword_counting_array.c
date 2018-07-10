@@ -11,11 +11,6 @@ struct key {
     unsigned int count;
 };
 
-struct key1 {
-    long double word;
-    unsigned int count;
-};
-
 struct key keytab[] = {
         "auto", 0,
         "break", 0,
@@ -32,46 +27,42 @@ struct key keytab[] = {
 
 int getword(char *, int);
 
-struct key *binsearch(char *, struct key *, int);
+int binsearch(char *, struct key[], int);
 
 static char buf[BUFSIZE]; /*buffer for un-read character*/
 static int bufp; /*next free position in buffer*/
 
 int main(void) {
+    int n;
     char word[MAXWORD];
-    struct key *pk;
-    while (getword(word, MAXWORD) != EOF) {
-        if ((pk = binsearch(word, &keytab[0], NKEYS)) != NULL)
-            ++pk->count;
-    }
-    for (pk = keytab; pk < keytab + NKEYS; ++pk)
-//    while (pk++ < keytab + NKEYS)
-        if (pk->count > 0)
-            printf("%4d %s\n", pk->count, pk->word);
+    while (getword(word, MAXWORD) != EOF)
+        if (isalpha(word[0]))
+            if ((n = binsearch(word, keytab, NKEYS)) >= 0)
+                keytab[n].count++;
+    for (n = 0; n < NKEYS; n++)
+        if (keytab[n].count > 0)
+            printf("%4d %s\n",
+                   keytab[n].count, keytab[n].word);
 
-    /*printf("%d\n", sizeof (struct key1));
-    printf("%d\n", sizeof (double));
-    printf("%d\n", sizeof (double));
-    printf("%d\n", sizeof (double));*/
     return 0;
 }
 
 /* binsearch: find word in tab[0]...tab[n-1] */
-struct key *binsearch(char *word, struct key *tab, int n) {
-    struct key *low, *high, *mid;
+int binsearch(char *word, struct key tab[], int n) {
+    int low, high, mid;
     int cond;
-    low = tab;
-    high = tab + n - 1;
+    low = 0;
+    high = n - 1;
     while (low <= high) {
         mid = low + (high - low) / 2;
-        if ((cond = strcmp(word, mid->word)) < 0)
+        if ((cond = strcmp(word, tab[mid].word)) < 0)
             high = mid - 1;
         else if (cond > 0)
             low = mid + 1;
         else
             return mid;
     }
-    return NULL;
+    return -1;
 }
 
 /* getword: get next word or character from input */
