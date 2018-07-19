@@ -1,5 +1,3 @@
-
-
 # C Knowledge Point
 
 ## Chapter-01
@@ -196,7 +194,7 @@
 
 # Expert C Programming
 
-## Chapter-01
+## Chapter-01 C Through the Mists of Time
 
 * `#define TOTAL_ELEMENTS (sizeof(array) / sizeof(array[0]))`
   instead of
@@ -204,7 +202,7 @@
   because the former allows the base type of the array to change (from, say, int to char) without
   needing a change to the #define, too.
 
-## Chapter-02
+## Chapter-02  It's Not a Bug, It's a Language Feature
 
 * Remember in C: multiplication and division come before addition and subtraction.Everything else should be in parentheses. We think that's excellent advice.
 
@@ -221,4 +219,74 @@
   	exit(1);
   ```
 
-* 
+
+## Chapter-03 Unscrambling Declarations in C
+
+* P.69 Figure 3-1, 3-2, 3-3
+
+* A typedef 'd name provides the type for every declarator in a declaration.
+
+* Don't bother with `typedef`s for `struct`s.
+
+* If you're stuck for a name for a structure tag, just give it a name that ends in "_tag". This
+  makes it simpler to detect what a particular name is.
+
+* Here's a better way to use `strcmp`:
+
+  ```c
+  #define STRCMP(a, R, b) (strcmp(a, b) R 0)
+  ```
+
+  Now, you can write code in the natural style:
+
+  ```c
+  if (STRCMP(s, ==, "const"))
+  ```
+
+## Chapter-04 The Shocking Truth: C Arrays and Pointers Are NOT the Same!
+
+* A pointer definition does not allocate space for what's pointed at, only for the pointer, except when
+  assigned a literal string.
+* A string literal created by a pointer initialization is defined as read-only in ANSI C.
+
+## Chapter-05 Thinking of Linking
+
+* Always put the `-l` library options at the rightmost end of your compilation command line.
+
+## Chapter-06  Poetry in Motion: Runtime Data Structures
+
+## Chapter-07 Thanks for the Memory
+
+* `memcpy()`library routine is tuned for high performance.
+
+## Chapter-08 Why Programmers Can't Tell Halloween from Christmas Day
+
+* OCT 31 equals DEC 25
+* Don't Mix Old and New Styles in Function Declaration and Definition
+* Get character-by-character input, P.184
+* If I were stranded on a desert island and could only take one data structure with me, it
+  would be the hash table.
+
+## Chapter-09 More about Arrays
+
+* When Arrays are Pointers:
+
+  1. An array name in an expression (in contrast with a declaration) is treated
+     by the compiler as a pointer to the first element of the array [1] (paraphrase,
+     ANSI C Standard, paragraph 6.2.2.1).
+  2. A subscript is always equivalent to an offset from a pointer (paraphrase,
+     ANSI C Standard, paragraph 6.3.2.1).
+  3. An array name in the declaration of a function parameter is treated by
+     the compiler as a pointer to the first element of the array (paraphrase, ANSI
+     C Standard, paragraph 6.7.1).
+
+* Given a declaration like int a[10];, both the following are correct:
+  `a[6] = ....;`
+  `6[a] = ....;`
+
+  The second version is never seen in production code, and has no known use apart from confusing
+  those new to C.
+
+* Arrays and Pointers Interchangeability Summary P. 215
+
+* Never forget that when you point the finger at someone, three of your own fingers are pointing back at you...
