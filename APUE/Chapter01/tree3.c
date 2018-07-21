@@ -77,7 +77,7 @@ void compare_in() {
     qsort(ppi, 3, sizeof(ppi+0), compare_int);
 
     for (int i = 0; i < 3; ++i) {
-        printf("%d ", *(*(ppi + i)));
+        printf("%d ", **(ppi + i));
     }
     printf("\n");
 }
