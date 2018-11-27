@@ -290,3 +290,49 @@
 * Arrays and Pointers Interchangeability Summary P. 215
 
 * Never forget that when you point the finger at someone, three of your own fingers are pointing back at you...
+
+# APUE
+
+## Chapter-01 UNIX System Overview
+
+* There are two rules to be aware of with respect to `errno`. First, its value is never
+  cleared by a routine if an error does not occur. Therefore, we should examine its value
+  only when the return value from a function indicates that an error occurred. 
+
+## Chapter-02 UNIX Standardization and Implementations
+
+* The runtime limits are obtained by calling one of the following three functions:`sysconf` `pathconf` `fpathconf`.
+
+## Chapter-03 File I/O
+
+* we can seek zero bytes from the current position to determine the current offset:
+
+  ```c
+  off_t currpos;
+  currpos = lseek(fd, 0L, SEEK_CUR);
+  ```
+
+* UNIX atomic way: Set O_APPEND o_flag when file is opened,this causes the kernel to position the file to the `EOF` before each write.
+
+* `BUFFSIZE = 4096` the I/O efficiency is better.
+
+## Chapter-04 Files and Directories
+
+* The contents of the symbolic link that are returned in `buf` are not `null` terminated
+
+## Chapter-06 System data files and Informations
+
+* `strftime` conversion specifiers. P.193
+* `printf("%s\n", NULL);` Out: (null); But, `printf("%s \n", NULL);`Out: Segment Fault.Use `fprintf(stdout, "%s\n", NULL);` can avoid this problem.
+
+## Chapter-07 Process Environments
+
+* The optimizations don’t affect the global, static, and volatile variables; their values after the `longjmp` are the last values that they assumed.
+
+## Chapter-08 Process Control
+
+* If we write a long-running program that forks many child processes, they become zombies unless we wait for them and fetch their termination status.
+
+## Chapter-11 Threads
+
+* The handlers are recorded in a stack, which means that they are executed in the reverse order from that with which they were registered.
