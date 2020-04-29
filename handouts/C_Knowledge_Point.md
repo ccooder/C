@@ -187,8 +187,14 @@
 
 * 7.7  Line Input and Output
 
-  1. The library functions gets and puts are similar to fgets and fputs, but operate on stdin
-
-  and stdout. Confusingly, gets deletes the terminating '\n', and puts adds it.
+  1. The library functions `gets` and `puts` are similar to `fgets` and `fputs`, but operate on `stdin` and `stdout`. Confusingly, `gets` deletes the terminating `'\n'`, and `puts` adds it.
 
 * 7.7 之后有很多手册式的东西，需要可以来查询（字符串，字符判断，数学计算，随机数）
+
+# Expert C Programming
+
+* `#define TOTAL_ELEMENTS (sizeof(array) / sizeof(array[0]))`
+  instead of
+  `#define TOTAL_ELEMENTS (sizeof(array) / sizeof(int))`
+  because the former allows the base type of the array to change (from, say, int to char) without
+  needing a change to the #define, too.
